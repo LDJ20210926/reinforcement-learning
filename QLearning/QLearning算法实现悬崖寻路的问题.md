@@ -1,5 +1,7 @@
 ## QLearning算法实现悬崖寻路的问题
 
+<p align ="right"> 作者：LDJ</p>
+
 ### $QLearning$介绍
 
 在开始之前我们首先需要介绍一下什么是$QLearning$ ,$QLearning$算法其实本质上是叫做**异策略时序差分控制**。
@@ -22,7 +24,7 @@ $$
 
 <table>
     <tr>
-        <td ><center><img src="../../../markdown%E5%9B%BE%E7%89%87/3.9-16340507111401.png" alt="3.9-16340507111401" style="zoom:25%;" > </center></td>
+        <td ><center><img src="../../../../markdown%E5%9B%BE%E7%89%87/3.9-16340507111401-16340926966611.png" alt="3.9-16340507111401" style="zoom:25%;" > </center></td>
     </tr>
     </table>
 
@@ -48,7 +50,7 @@ $$
 
 <table>
     <tr>
-        <td ><center><img src="../../../markdown%E5%9B%BE%E7%89%87/cliffwalking_1.png" alt="cliffwalking_1" style="zoom:50%;" > </center></td>
+        <td ><center><img src="../../../../markdown%E5%9B%BE%E7%89%87/cliffwalking_1-16340927632142.png" alt="cliffwalking_1" style="zoom:50%;" > </center></td>
     </tr>
     </table>
 
@@ -363,4 +365,5 @@ class QLearning(object):
         print("加载模型成功！")
 ```
 
-最后说一下，完整版代码就点击github这里即可查看。
+最后说一下，完整版代码就点击[github](https://github.com/LDJ20210926/reinforcement-learning)这里即可查看。
+
