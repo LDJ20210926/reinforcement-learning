@@ -1,5 +1,7 @@
 ## 基于CartPole-v0环境的PolicyGradient代码实现
 
+<p align="right"> 作者：LDJ</p>
+
 ### CartPole-v0环境介绍
 
 **具体的大背景我就不再重复，也就是在gym第三方库，python3.7.6，torch1.4。**
@@ -9,7 +11,7 @@ Cart Pole即车杆游戏，游戏模型如下图所示。游戏里面有一个�
 - 杆子倾斜的角度$ \theta$不能大于15°
 - 小车移动的位置$x$需保持在一定范围（中间到两边各2.4个单位长度）
 
-<img src="../../../markdown%E5%9B%BE%E7%89%87/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyODkyMzgz,size_16,color_FFFFFF,t_70.png" alt="图片展示" style="zoom:35%;" />
+<img src="../../../../markdown%E5%9B%BE%E7%89%87/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyODkyMzgz,size_16,color_FFFFFF,t_70.png" alt="图片展示" style="zoom:33%;" />
 
 **动作（action）**：
 
@@ -41,7 +43,7 @@ Cart Pole即车杆游戏，游戏模型如下图所示。游戏里面有一个�
 
 那么这里关键问题是我们如何判断好坏呢？这里奖励的重要性就不言而喻了。根据奖励，我们就可以得到目标函数，也就是有方向了。R (回报)是一个随机变量。我们能够计算的是 R 的期望值。
 
-<img src="../../../markdown%E5%9B%BE%E7%89%87/4.6.png" alt="img" style="zoom:33%;" />
+<img src="../../../../markdown%E5%9B%BE%E7%89%87/4.6-16341954963362.png" alt="img" style="zoom:33%;" />
 
 上图中，我们就可以发现其实对于回报是一个随机变量，很自然的我们就会想到求期望进行表示。
 $$
@@ -49,14 +51,14 @@ $$
 $$
 怎么最大化期望奖励呢？我们用的是 `梯度上升(gradient ascent)`，因为要让它越大越好，所以是梯度上升。梯度上升在更新参数的时候要加。要进行梯度上升，我们先要计算期望的奖励(expected reward) \bar{R}Rˉ 的梯度。我们对 $\bar{R}$取一个梯度，这里面只有$p_{\theta}(\tau) $是跟 $\theta$有关，所以梯度就放在 $p_{\theta}(\tau)$这个地方。$R(\tau) $这个奖励函数不需要是可微分的(differentiable)，这个不影响我们解接下来的问题。举例来说，如果是在 GAN 里面，$R(\tau) $其实是一个 discriminator，它就算是没有办法微分，也无所谓，你还是可以做接下来的运算。
 
-<img src="../../../markdown%E5%9B%BE%E7%89%87/4.7.png" alt="img" style="zoom:33%;" />
+<img src="../../../../markdown%E5%9B%BE%E7%89%87/4.7-16341955351324.png" alt="img" style="zoom:33%;" />
 
 我们可以直观地来理解上面这个式子，也就是在你采样到的数据里面， 你采样到在某一个状态 $s_t $要执行某一个动作 $a_t$， 这个$ s_t $跟 $a_t $它是在整个轨迹$ \tau$的里面的某一个状态和动作的对。
 
 - 假设你在 $s_t$执行$a_t$，最后发现 $\tau$的奖励是正的， 那你就要增加这一项的概率，你就要增加在$ s_t $执行$ a_t$的概率。
 - 反之，在$ s_t$ 执行 $a_t $会导致 $\tau$的奖励变成负的，你就要减少这一项的概率。
 
-<img src="../../../markdown%E5%9B%BE%E7%89%87/4.8.png" alt="img" style="zoom:33%;" />
+<img src="../../../../markdown%E5%9B%BE%E7%89%87/4.8-16341955699516.png" alt="img" style="zoom:33%;" />
 
 以上这张图很好的表达了，我们如何去实现这个流程。
 
@@ -66,7 +68,7 @@ $$
 
 更新完你的模型以后。你要重新去收集数据，再更新模型。注意，一般 `policy gradient(PG) `采样的数据就只会用一次。你把这些数据采样起来，然后拿去更新参数，这些数据就丢掉了。在等一下的代码中的话，其实是做的是batch_size 的操作，但是数据也是仅仅只用了一次，但是有好多个batch_size,又由于环境的简单性，所以这里的话就没有过于体现出采集信息上面的麻烦。
 
-<img src="../../../markdown%E5%9B%BE%E7%89%87/4.10.png" alt="img" style="zoom:33%;" />
+<img src="../../../../markdown%E5%9B%BE%E7%89%87/4.10-16341955961198.png" alt="img" style="zoom:33%;" />
 
 我们可以把它想成一个分类的问题，在分类里面就是输入一个图像，然后输出决定说是 10 个类里面的哪一个。在做分类时，我们要收集一堆训练数据，要有输入跟输出的对。
 
@@ -305,4 +307,5 @@ plot_rewards_cn(rewards,ma_rewards,tag="测试",env=cfg.env,algo=cfg.algo,path=c
 
 ```
 
-最后附上github上的完整代码，点击github即可
+最后附上github上的完整代码，点击[github](https://github.com/LDJ20210926/reinforcement-learning/tree/main/PolicyGradient)即可
+
